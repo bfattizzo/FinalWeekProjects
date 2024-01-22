@@ -102,19 +102,19 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
         <img src={weatherIcon} alt="cambio icona" width={'170px'} />
         <div className="weather-temp">{weatherData.temperature}</div>
       </div>
-      <div className="weather-location text-center">{weatherData.location}</div>
+      <div className="weather-location">{weatherData.location}</div>
       <div className="data-container">
           <div className="element">
             <img src={humidity_icon} alt="icone" className="icon"/>
             <div className="data">
-              <div className="humidity-percent">64%</div>
+              <div className="humidity-percent">{weatherData.humidity}</div>
               <div className="text">Humidity</div>
             </div>
           </div>
           <div className="element">
             <img src={wind_icon} alt="icone" className="icon"/>
             <div className="data">
-              <div className="wind-rate">18 km/h</div>
+              <div className="wind-rate">{weatherData.wind}</div>
               <div className="text">Wind Speed</div>
             </div>
           </div>
