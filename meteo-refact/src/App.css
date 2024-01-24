@@ -5,7 +5,7 @@
   margin-top: 8%;
   padding-bottom: 5%;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.233);
+  background-color: rgba(0, 0, 0, 0.349);
 }
 
 .container:before {
@@ -29,7 +29,6 @@
 
 .searchBar input {
   display: flex;
-  width: 20%;
   height: 30px;
   border-radius: 20px;
   border: none;
@@ -79,7 +78,8 @@
 }
 
 .data-container {
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   color: rgb(255, 255, 255);
