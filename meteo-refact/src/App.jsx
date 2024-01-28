@@ -122,6 +122,5 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
         </div>
     </>
   );
-}
 
 export default App
