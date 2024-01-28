@@ -1,5 +1,5 @@
 //Gestisco gli Stati utilizzando i React e i Redux Hooks.
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setWeatherData, setWeatherIcon } from './redux/actions';
 
@@ -11,7 +11,9 @@ import humidity_icon from "../src/assets/humidity.png";
 import rain_icon from "../src/assets/rain.png";
 import snow_icon from "../src/assets/snow.png";
 import wind_icon from "../src/assets/wind.png";
+import star_icon from "../src/assets/dlf.pt-whatsapp-chat-bubble-png-5416572.png"
 import './App.css'
+
 
 function App() {
 
@@ -20,9 +22,10 @@ function App() {
 
 //Utilizzo l'hook di Redux per ottenere la funzione dispatch e per estrarre quello che mi serve dallo store di Redux.
   const dispatch = useDispatch();
-  const { weatherData, weatherIcon } = useSelector((state) => state);
+  const { weatherData, weatherIcon} = useSelector((state) => state);
 
   const [city, setCity] = useState('');
+
 
   /*Questa funzione viene chiamata per eseguire una ricerca dei dati di cui abbiamo bisogno, in questo caso: 
 ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e anche l'icona che cambia in base al tempo*/
@@ -31,6 +34,7 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
     if (element[0].value === "") {
       return 0;
     }
+
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=metric&APPID=${api_key}`;
 
     let response = await fetch(url);
@@ -80,9 +84,25 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
     ) {
       dispatch(setWeatherIcon(snow_icon));
     } else {
-      dispatch(setWeatherIcon(clear_icon));
+      dispatch(setWeatherIcon(star_icon));
+    } 
+  };
+
+  //Codice per ricevere l'input da tastiera nella searchBar
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      search();
     }
   };
+
+  useEffect(() => {
+    const searchBar = document.querySelector('.cityInput');
+    searchBar.addEventListener('keydown', handleKeyPress);
+    return () => {
+      searchBar.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
 
   return (
     <>
@@ -99,7 +119,7 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
           </div>
         </div>
         <div className="weather-image">
-        <img src={weatherIcon} alt="cambio icona" width={'170px'} />
+        <img id="star-icon" src={weatherIcon} alt="cambio icona" width={'170px'} />
         <div className="weather-temp">{weatherData.temperature}</div>
       </div>
       <div className="weather-location">{weatherData.location}</div>
@@ -119,8 +139,10 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
             </div>
           </div>
         </div>
+        <hr/>
         </div>
     </>
   );
+}
 
-export default App
+export default App;

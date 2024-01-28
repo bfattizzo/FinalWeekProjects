@@ -1,4 +1,4 @@
-import cloud_icon from "../assets/cloud.png"
+import star_icon from "../assets/dlf.pt-whatsapp-chat-bubble-png-5416572.png"
 
 const initialState = {
     weatherData: {  //Contiene le informazioni meteorologiche iniziali con valori vuoti.
@@ -7,7 +7,7 @@ const initialState = {
       temperature: '',
       location: '',
     },
-    weatherIcon: cloud_icon,  //Icona predefinita.
+    weatherIcon: star_icon,  //Icona predefinita.
   };
   
   const weatherReducer = (state = initialState, action) => {
