@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+body {
+  width: 100%;
+  min-height: 100%;
+background: url(assets/Cara-Saven-Bali-Base-Wallpaper.jpg) no-repeat;
+}
+
+#font {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+#lavori {
+  border: 2px solid #00000033;
+  border-radius: 40px;
+background-color: rgba(82, 114, 109, 0.548);
+}
+
+#lavori a {
+  text-decoration: none;
+  color: #F5F2E0;
+  font-family: 'Josefin Sans', sans-serif;
+}
