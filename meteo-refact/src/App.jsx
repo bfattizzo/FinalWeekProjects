@@ -1,7 +1,8 @@
 //Gestisco gli Stati utilizzando i React e i Redux Hooks.
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { setWeatherData, setWeatherIcon } from './redux/actions';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setWeatherData, setWeatherIcon } from "./redux/actions";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Importo gli assets, in questo caso le immagini, necessarie.
 import clear_icon from "../src/assets/clear.png";
@@ -11,21 +12,20 @@ import humidity_icon from "../src/assets/humidity.png";
 import rain_icon from "../src/assets/rain.png";
 import snow_icon from "../src/assets/snow.png";
 import wind_icon from "../src/assets/wind.png";
-import star_icon from "../src/assets/dlf.pt-whatsapp-chat-bubble-png-5416572.png"
-import './App.css'
+import star_icon from "../src/assets/dlf.pt-whatsapp-chat-bubble-png-5416572.png";
+import MeteoGiorniSuccessivi from "./components/MeteoGiorniSuccessivi";
+import "./App.css";
 
 
 function App() {
-
   //Questa è la mia Key da utilizzare per l'API.
   let api_key = "8faf54eae4c403d686a4428a4bab05ad";
 
-//Utilizzo l'hook di Redux per ottenere la funzione dispatch e per estrarre quello che mi serve dallo store di Redux.
+  //Utilizzo l'hook di Redux per ottenere la funzione dispatch e per estrarre quello che mi serve dallo store di Redux.
   const dispatch = useDispatch();
-  const { weatherData, weatherIcon} = useSelector((state) => state);
+  const { weatherData, weatherIcon } = useSelector((state) => state);
 
-  const [city, setCity] = useState('');
-
+  const [city, setCity] = useState("");
 
   /*Questa funzione viene chiamata per eseguire una ricerca dei dati di cui abbiamo bisogno, in questo caso: 
 ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e anche l'icona che cambia in base al tempo*/
@@ -39,17 +39,16 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
 
     let response = await fetch(url);
     let data = await response.json();
-    
+
     //Vengono estratti alcuni dati rilevanti dalla risposta dell'API di OpenWeatherMap e successivamente viene inviata un'azione Redux (setWeatherData) per aggiornare lo stato globale con questi dati.
     const newWeatherData = {
-      humidity: data.main.humidity + ' %',
-      wind: data.wind.speed + ' km/h',
-      temperature: Math.floor(data.main.temp) + '°C',
+      humidity: data.main.humidity + " %",
+      wind: data.wind.speed + " km/h",
+      temperature: Math.floor(data.main.temp) + "°C",
       location: data.name,
     };
     dispatch(setWeatherData(newWeatherData));
 
-    
     //Questa funzione gestisce l'intero processo di ricerca meteo. Dalla verifica se l'input è vuoto, alla chiamata all'API, all'aggiornamento dello stato Redux con i dati meteorologici e l'icona corrispondente.
     if (data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
       dispatch(setWeatherIcon(clear_icon));
@@ -85,30 +84,35 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
       dispatch(setWeatherIcon(snow_icon));
     } else {
       dispatch(setWeatherIcon(star_icon));
-    } 
+    }
   };
 
   //Codice per ricevere l'input da tastiera nella searchBar
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       search();
     }
   };
 
   useEffect(() => {
-    const searchBar = document.querySelector('.cityInput');
-    searchBar.addEventListener('keydown', handleKeyPress);
+    const searchBar = document.querySelector(".cityInput");
+    searchBar.addEventListener("keydown", handleKeyPress);
     return () => {
-      searchBar.removeEventListener('keydown', handleKeyPress);
+      searchBar.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
-
 
   return (
     <>
       <div className="container">
         <div className="searchBar">
-          <input type="text" className="cityInput" placeholder="Cerca una città" value={city} onChange={(e) => setCity(e.target.value)}/>
+          <input
+            type="text"
+            className="cityInput"
+            placeholder="Cerca una città"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
           <div className="search-icon" onClick={search}>
             <img
               src="../src/assets/search-svgrepo-com.svg"
@@ -119,28 +123,34 @@ ho voluto mostrare i °C, la percentuale di umidità, la velocità del vento e a
           </div>
         </div>
         <div className="weather-image">
-        <img id="star-icon" src={weatherIcon} alt="cambio icona" width={'170px'} />
-        <div className="weather-temp">{weatherData.temperature}</div>
-      </div>
-      <div className="weather-location">{weatherData.location}</div>
-      <div className="data-container">
+          <img
+            id="star-icon"
+            src={weatherIcon}
+            alt="cambio icona"
+            width={"170px"}
+          />
+          <div className="weather-temp">{weatherData.temperature}</div>
+        </div>
+        <div className="weather-location">{weatherData.location}</div>
+        <div className="data-container">
           <div className="element">
-            <img src={humidity_icon} alt="icone" className="icon"/>
+            <img src={humidity_icon} alt="icone" className="icon" />
             <div className="data">
               <div className="humidity-percent">{weatherData.humidity}</div>
               <div className="text">Humidity</div>
             </div>
           </div>
           <div className="element">
-            <img src={wind_icon} alt="icone" className="icon"/>
+            <img src={wind_icon} alt="icone" className="icon" />
             <div className="data">
               <div className="wind-rate">{weatherData.wind}</div>
               <div className="text">Wind Speed</div>
             </div>
           </div>
         </div>
-        <hr/>
-        </div>
+        <br/>
+        <MeteoGiorniSuccessivi/>
+      </div>
     </>
   );
 }
