@@ -20,8 +20,8 @@ const MeteoGiorniSuccessivi = () => {
     if (element[0].value === "") {
       return 0;
     }
-  let api_key = "8faf54eae4c403d686a4428a4bab05ad";
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=metric&APPID=${api_key}`;
+  let api_key = "a917aee100fe859189144ea39c08002c";
+  let url = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${element[0].value}&units=metric&APPID=${api_key}`;
 
   let response = await fetch(url);
     let data = await response.json();

@@ -36,7 +36,7 @@ const MainSearch = () => {
               value={query}
               onChange={handleChange}
               className='rounded-pill'
-              placeholder="Certa un lavoro e fai invio"
+              placeholder="Cerca un lavoro e fai invio"
             />
           </Form>
         </Col>
