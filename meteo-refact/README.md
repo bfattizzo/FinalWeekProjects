@@ -1,5 +1,5 @@
 
-App Meteo, responsive, programmata con l'utilizzo di React Native JS e Redux insieme. 
+App Meteo, responsive, programmata con l'utilizzo di React Native JS e Redux. 
 Le API del meteo sono state prese da OpenWeatherMap per visualizzare una serie di dati, tra cui anche la previsione dei 3 giorni seguenti. 
 
 
